@@ -9,9 +9,8 @@ export PATH
 mount -o remount,rw -t auto /system
 mount -t rootfs -o remount,rw rootfs
 
-
-ZSWAPSIZE=1536
-
+SWAPSIZE=1280
+PRIORITY=10
 
 
 
