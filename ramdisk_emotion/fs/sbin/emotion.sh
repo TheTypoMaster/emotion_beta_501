@@ -52,7 +52,23 @@ fi
 
 sync
 
-#SSWAP to 1.4gb
+# kernel custom test
+if [ -e /data/emotiontest.log ]; then
+	rm /data/emotiontest.log
+fi
+
+echo  Kernel script is working !!! >> /data/emotiontest.log
+echo "excecuted on $(date +"%d-%m-%Y %r" )" >> /data/emotiontest.log
+echo  Done ! >> /data/emotiontest.log
+
+#FSTRIM
+$BBX fstrim -v /system >> /data/emotiontest.log
+$BBX fstrim -v /cache >> /data/emotiontest.log
+$BBX fstrim -v /data >> /data/emotiontest.log
+
+sync
+
+#SSWAP to 1.2gb
 /res/ext/sswap.sh
 
 # Execute setenforce to permissive (workaround as it is already permissive that time)
@@ -120,7 +136,6 @@ echo  Done ! >> /data/emotiontest.log
 #Set default values on boot
 echo "2649600" > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
 echo "1" > /sys/kernel/dyn_fsync/Dyn_fsync_active
-echo "883200" > /sys/kernel/cpufreq_hardlimit/touchboost_lo_freq
 echo "200000000" > /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
 echo "600000000" > /sys/class/kgsl/kgsl-3d0/max_gpuclk
 
@@ -176,19 +191,6 @@ ln -fs /res/synapse/uci /sbin/uci
 mount -t rootfs -o remount,ro rootfs
 
 sync
-
-# Google play services wakelock fix
-sleep 40
-su -c "pm enable com.google.android.gms/.update.SystemUpdateActivity"
-su -c "pm enable com.google.android.gms/.update.SystemUpdateService"
-su -c "pm enable com.google.android.gms/.update.SystemUpdateService$ActiveReceiver"
-su -c "pm enable com.google.android.gms/.update.SystemUpdateService$Receiver"
-su -c "pm enable com.google.android.gms/.update.SystemUpdateService$SecretCodeReceiver"
-su -c "pm enable com.google.android.gsf/.update.SystemUpdateActivity"
-su -c "pm enable com.google.android.gsf/.update.SystemUpdatePanoActivity"
-su -c "pm enable com.google.android.gsf/.update.SystemUpdateService"
-su -c "pm enable com.google.android.gsf/.update.SystemUpdateService$Receiver"
-su -c "pm enable com.google.android.gsf/.update.SystemUpdateService$SecretCodeReceiver"
 
 #Fin
 mount -t rootfs -o remount,ro rootfs
