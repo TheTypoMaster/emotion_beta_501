@@ -1,0 +1,54 @@
+From 35adc07bb10b428d906c1397f754385d02b642c5 Mon Sep 17 00:00:00 2001
+From: placiano <placiano80@gmail.com>
+Date: Sat, 27 Jun 2015 02:15:21 +0200
+Subject: [PATCH] patch default.prop
+
+---
+ SM-N910F/default.prop | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
+
+diff --git a/SM-N910F/default.prop b/SM-N910F/default.prop
+index defbff1..953ca6d 100644
+--- a/SM-N910F/default.prop
++++ b/SM-N910F/default.prop
+@@ -2,15 +2,31 @@
+ # ADDITIONAL_DEFAULT_PROPERTIES
+ #
+ persist.cne.feature=0
+-persist.security.ams.enforcing=1
+-ro.secure=1
++persist.security.ams.enforcing=0
++ro.secure=0
+ ro.allow.mock.location=0
+-ro.debuggable=0
+-ro.adb.secure=1
++ro.debuggable=1
++ro.adb.secure=0
+ ro.zygote=zygote32
+-persist.sys.usb.config=mtp
++persist.sys.usb.config=mtp,adb
++ro.securestorage.support=false
+ dalvik.vm.dex2oat-Xms=64m
+ dalvik.vm.dex2oat-Xmx=512m
+ dalvik.vm.image-dex2oat-Xms=64m
+ dalvik.vm.image-dex2oat-Xmx=64m
++dalvik.vm.image-dex2oat-filter=everything
++dalvik.vm.dex2oat-filter=everything
+ ro.dalvik.vm.native.bridge=0
++wlan.wfd.hdcp=disable
++androidboot.selinux=0
++ro.config.knox=0
++ro.config.tima=0
++windowsmgr.max_events_per_sec=90
++ro.min_pointer_dur=8
++ro.max.fling_velocity=12000
++ro.min.fling_velocity=8000
++video.accelerate.hw=1
++debug.performance.tuning=1
++persist.service.lgospd.enable=0
++persist.service.pcsync.enable=0
++touch.pressure.scale=0.003
+\ No newline at end of file
+--
+libgit2 0.22.2
+
